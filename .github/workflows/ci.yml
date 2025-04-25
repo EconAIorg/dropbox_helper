@@ -25,5 +25,5 @@ jobs:
 
       - name: Run tests
         run: |
-          uv pip install pytest
-          pytest tests/
+          uv add pytest
+          pytest
