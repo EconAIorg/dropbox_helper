@@ -11,6 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set environment variables
+        run: |
+            echo "DROPBOX_TOKEN=${{ secrets.DROPBOX_TOKEN }}" >> $GITHUB_ENV
+            echo "DROPBOX_KEY=${{ secrets.DROPBOX_KEY }}" >> $GITHUB_ENV
+            echo "DROPBOX_SECRET=${{ secrets.DROPBOX_SECRET }}" >> $GITHUB_ENV
+
+
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
