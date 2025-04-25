@@ -1,0 +1,6 @@
+.venv
+.env
+.pytest_cache
+src/dropbox_helper.egg-info
+__pycache__/
+*.py[cod]
