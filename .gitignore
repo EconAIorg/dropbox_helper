@@ -5,3 +5,4 @@ src/dropbox_helper.egg-info
 __pycache__/
 *.py[cod]
 test.ipynb
+.secrets
