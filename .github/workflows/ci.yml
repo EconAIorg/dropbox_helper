@@ -46,7 +46,7 @@ jobs:
         run: |
           source .venv/bin/activate
           rm -rf docs  # Remove old docs directory if it exists
-          pdoc src/dropbox_helper -o docs -d numpy --no-include-undocumented 
+          pdoc src/dropbox_helper -o docs -d numpy --no-include-undocumented  -t docs/templates
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
