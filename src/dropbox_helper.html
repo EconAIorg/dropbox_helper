@@ -29,6 +29,7 @@
                     <li><a href="dropbox_helper/dbx.html">dbx</a></li>
                     <li><a href="dropbox_helper/parquet_mixin.html">parquet_mixin</a></li>
                     <li><a href="dropbox_helper/pickle_mixin.html">pickle_mixin</a></li>
+                    <li><a href="dropbox_helper/shapefile_mixin.html">shapefile_mixin</a></li>
             </ul>
 
             <h2>API Documentation</h2>
@@ -64,7 +65,7 @@ src<wbr>.dropbox_helper    </h1>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.csv_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">CSVMixin</span>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.parquet_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParquetMixin</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.pickle_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">PickleMixin</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="c1"># from .shapefile_mixin import ShapefileMixin</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.shapefile_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShapefileMixin</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="c1"># from .npz_mixin import NPZMixin</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="c1"># from .raster_mixin import RasterMixin</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="c1"># from .json_mixin import JSONMixin</span>
@@ -75,7 +76,7 @@ src<wbr>.dropbox_helper    </h1>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="c1"># __all__ = [&quot;DropboxHelper&quot;, &quot;get_dbx_helper&quot;]</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DropboxHelper</span><span class="p">(</span><span class="n">CoreMixin</span><span class="p">,</span> <span class="n">CSVMixin</span><span class="p">,</span> <span class="n">ParquetMixin</span><span class="p">,</span> <span class="n">PickleMixin</span><span class="p">):</span> <span class="c1"># , ShapefileMixin, NPZMixin, RasterMixin, JSONMixin, ReportMixin):</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DropboxHelper</span><span class="p">(</span><span class="n">CoreMixin</span><span class="p">,</span> <span class="n">CSVMixin</span><span class="p">,</span> <span class="n">ParquetMixin</span><span class="p">,</span> <span class="n">PickleMixin</span><span class="p">,</span> <span class="n">ShapefileMixin</span><span class="p">):</span> <span class="c1"># , , NPZMixin, RasterMixin, JSONMixin, ReportMixin):</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    Class for interfacing with Dropbox.</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
@@ -129,13 +130,13 @@ src<wbr>.dropbox_helper    </h1>
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">DropboxHelper</span><wbr>(<span class="base"><a href="dropbox_helper/core_mixin.html#CoreMixin">src.dropbox_helper.core_mixin.CoreMixin</a></span>, <span class="base"><a href="dropbox_helper/csv_mixin.html#CSVMixin">src.dropbox_helper.csv_mixin.CSVMixin</a></span>, <span class="base"><a href="dropbox_helper/parquet_mixin.html#ParquetMixin">src.dropbox_helper.parquet_mixin.ParquetMixin</a></span>, <span class="base"><a href="dropbox_helper/pickle_mixin.html#PickleMixin">src.dropbox_helper.pickle_mixin.PickleMixin</a></span>):
+    <span class="name">DropboxHelper</span><wbr>(<span class="base"><a href="dropbox_helper/core_mixin.html#CoreMixin">src.dropbox_helper.core_mixin.CoreMixin</a></span>, <span class="base"><a href="dropbox_helper/csv_mixin.html#CSVMixin">src.dropbox_helper.csv_mixin.CSVMixin</a></span>, <span class="base"><a href="dropbox_helper/parquet_mixin.html#ParquetMixin">src.dropbox_helper.parquet_mixin.ParquetMixin</a></span>, <span class="base"><a href="dropbox_helper/pickle_mixin.html#PickleMixin">src.dropbox_helper.pickle_mixin.PickleMixin</a></span>, <span class="base"><a href="dropbox_helper/shapefile_mixin.html#ShapefileMixin">src.dropbox_helper.shapefile_mixin.ShapefileMixin</a></span>):
 
                 <label class="view-source-button" for="DropboxHelper-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#DropboxHelper"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DropboxHelper-17"><a href="#DropboxHelper-17"><span class="linenos">17</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DropboxHelper</span><span class="p">(</span><span class="n">CoreMixin</span><span class="p">,</span> <span class="n">CSVMixin</span><span class="p">,</span> <span class="n">ParquetMixin</span><span class="p">,</span> <span class="n">PickleMixin</span><span class="p">):</span> <span class="c1"># , ShapefileMixin, NPZMixin, RasterMixin, JSONMixin, ReportMixin):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="DropboxHelper-17"><a href="#DropboxHelper-17"><span class="linenos">17</span></a><span class="k">class</span><span class="w"> </span><span class="nc">DropboxHelper</span><span class="p">(</span><span class="n">CoreMixin</span><span class="p">,</span> <span class="n">CSVMixin</span><span class="p">,</span> <span class="n">ParquetMixin</span><span class="p">,</span> <span class="n">PickleMixin</span><span class="p">,</span> <span class="n">ShapefileMixin</span><span class="p">):</span> <span class="c1"># , , NPZMixin, RasterMixin, JSONMixin, ReportMixin):</span>
 </span><span id="DropboxHelper-18"><a href="#DropboxHelper-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="DropboxHelper-19"><a href="#DropboxHelper-19"><span class="linenos">19</span></a><span class="sd">    Class for interfacing with Dropbox.</span>
 </span><span id="DropboxHelper-20"><a href="#DropboxHelper-20"><span class="linenos">20</span></a>
@@ -234,6 +235,11 @@ The path of the Dropbox folder where the output data will be saved.</li>
             <div><dt><a href="dropbox_helper/pickle_mixin.html#PickleMixin">src.dropbox_helper.pickle_mixin.PickleMixin</a></dt>
                                 <dd id="DropboxHelper.read_pickle" class="function"><a href="dropbox_helper/pickle_mixin.html#PickleMixin.read_pickle">read_pickle</a></dd>
                 <dd id="DropboxHelper.write_pickle" class="function"><a href="dropbox_helper/pickle_mixin.html#PickleMixin.write_pickle">write_pickle</a></dd>
+
+            </div>
+            <div><dt><a href="dropbox_helper/shapefile_mixin.html#ShapefileMixin">src.dropbox_helper.shapefile_mixin.ShapefileMixin</a></dt>
+                                <dd id="DropboxHelper.read_shp" class="function"><a href="dropbox_helper/shapefile_mixin.html#ShapefileMixin.read_shp">read_shp</a></dd>
+                <dd id="DropboxHelper.write_shp" class="function"><a href="dropbox_helper/shapefile_mixin.html#ShapefileMixin.write_shp">write_shp</a></dd>
 
             </div>
                                 </dl>
