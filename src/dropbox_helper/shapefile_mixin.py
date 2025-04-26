@@ -17,40 +17,41 @@ class ShapefileMixin:
     """
 
     def read_shp(self,
-                 dbx_path: str,
-                 directory: str, 
-                 filename:str,
-                 **kwargs) -> gpd.GeoDataFrame | None:
+                dbx_path: str,
+                directory: str, 
+                filename: str,
+                **kwargs) -> gpd.GeoDataFrame | None:
         """
-        Download and load a shapefile from Dropbox into a GeoDataFrame.
-
-        Parameters
-        ----------
-        dbx_path : str
-            Base Dropbox path where the shapefile components are stored.
-        directory : str
-            Subdirectory within the base path containing the shapefile (without leading slash).
-
-        Returns
-        -------
-        geopandas.GeoDataFrame or None
-            The loaded GeoDataFrame, or None if an error occurs.
+        Download and load a shapefile (with all its components) from Dropbox into a GeoDataFrame.
         """
-        def loader(content: bytes, **kwargs):
-            return gpd.read_file(io.BytesIO(content), **kwargs)
+        # Needed shapefile extensions
+        SHP_EXTENSIONS = [".shp", ".shx", ".dbf", ".prj", ".cpg"]
 
-        # downloader: full download via Dropbox SDK
-        def downloader(full_path: str):
-            return self.dbx.files_download(full_path)
+        try:
+            # Create a temporary directory
+            with tempfile.TemporaryDirectory() as tmpdir:
+                # Download all components
+                for ext in SHP_EXTENSIONS:
+                    full_path = os.path.join(dbx_path, directory, filename.replace(".shp", ext))
+                    try:
+                        md, res = self.dbx.files_download(full_path)
+                        local_fp = os.path.join(tmpdir, os.path.basename(full_path))
+                        with open(local_fp, "wb") as f:
+                            f.write(res.content)
+                    except dropbox.exceptions.ApiError as e:
+                        # Allow missing .prj or .cpg files
+                        if ext in [".prj", ".cpg"]:
+                            continue
+                        else:
+                            raise e
 
-        return self._base_read(
-            dbx_path=dbx_path,
-            directory=directory,
-            filename=filename,
-            downloader=downloader,
-            loader=loader,
-            **kwargs
-        )
+                # Now read the .shp file from local temp directory
+                shp_path = os.path.join(tmpdir, filename)
+                return gpd.read_file(shp_path, **kwargs)
+
+        except Exception as e:
+            print(f"Failed to read shapefile: {e}")
+            return None
 
 
     def write_shp(self,
