@@ -1,5 +1,5 @@
 import pytest
-from dropbox_helper import dbx_helper
+from dropbox_helper import get_dbx_helper
 import os
 import numpy as np
 import io
@@ -17,7 +17,7 @@ def dropbox_test_folder(request):
     Injects `self.dir` and `self.dbx_helper`.
     """
     folder_name = f"test_folder_{uuid.uuid4().hex}"
-    helper = dbx_helper
+    helper = get_dbx_helper()
     output_path = helper.output_path
     full_path = os.path.join(output_path, folder_name)
 
