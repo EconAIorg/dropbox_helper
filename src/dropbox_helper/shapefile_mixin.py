@@ -2,6 +2,7 @@ import os
 import tempfile
 import geopandas as gpd
 import dropbox
+import io
 
 class ShapefileMixin:
     """
@@ -17,7 +18,9 @@ class ShapefileMixin:
 
     def read_shp(self,
                  dbx_path: str,
-                 directory: str) -> gpd.GeoDataFrame | None:
+                 directory: str, 
+                 filename:str,
+                 **kwargs) -> gpd.GeoDataFrame | None:
         """
         Download and load a shapefile from Dropbox into a GeoDataFrame.
 
@@ -33,28 +36,22 @@ class ShapefileMixin:
         geopandas.GeoDataFrame or None
             The loaded GeoDataFrame, or None if an error occurs.
         """
-        exts = ['.shp', '.shx', '.dbf', '.prj', '.cpg']
-        try:
-            with tempfile.TemporaryDirectory() as tmpdir:
-                for ext in exts:
-                    comp = directory + ext
-                    data = self._base_read(
-                        dbx_path=dbx_path,
-                        directory=directory,
-                        filename=comp,
-                        downloader=self.dbx.files_download,
-                        loader=lambda b: b
-                    )
-                    if data is None:
-                        raise RuntimeError(f"Missing component: {comp}")
-                    path = os.path.join(tmpdir, comp)
-                    with open(path, 'wb') as f:
-                        f.write(data)
-                shp = next(f for f in os.listdir(tmpdir) if f.endswith('.shp'))
-                return gpd.read_file(os.path.join(tmpdir, shp))
-        except Exception as e:
-            print(f"Failed to load shapefile: {e}")
-            return None
+        def loader(content: bytes, **kwargs):
+            return gpd.read_file(io.BytesIO(content), **kwargs)
+
+        # downloader: full download via Dropbox SDK
+        def downloader(full_path: str):
+            return self.dbx.files_download(full_path)
+
+        return self._base_read(
+            dbx_path=dbx_path,
+            directory=directory,
+            filename=filename,
+            downloader=downloader,
+            loader=loader,
+            **kwargs
+        )
+
 
     def write_shp(self,
                   gdf: gpd.GeoDataFrame,
