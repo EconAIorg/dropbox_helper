@@ -3,7 +3,7 @@ from .csv_mixin import CSVMixin
 from .parquet_mixin import ParquetMixin
 from .pickle_mixin import PickleMixin
 from .shapefile_mixin import ShapefileMixin
-# from .npz_mixin import NPZMixin
+from .npz_mixin import NPZMixin
 # from .raster_mixin import RasterMixin
 # from .json_mixin import JSONMixin
 # from .report_mixin import ReportMixin
@@ -13,7 +13,7 @@ load_dotenv()
 
 # __all__ = ["DropboxHelper", "get_dbx_helper"]
 
-class DropboxHelper(CoreMixin, CSVMixin, ParquetMixin, PickleMixin, ShapefileMixin): # , , NPZMixin, RasterMixin, JSONMixin, ReportMixin):
+class DropboxHelper(CoreMixin, CSVMixin, ParquetMixin, PickleMixin, ShapefileMixin, NPZMixin): # , RasterMixin, JSONMixin, ReportMixin):
     """
     Class for interfacing with Dropbox.
 

@@ -104,6 +104,5 @@ class CSVMixin:
             directory=directory,
             filename=filename,
             uploader=uploader,
-            chunked=False,
             print_success=True,
         )
