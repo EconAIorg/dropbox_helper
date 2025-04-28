@@ -4,9 +4,17 @@ import io
 import os
 import dropbox
 class ParquetMixin:
+    """
+    Mixin providing parquet read/write capabilities with Dropbox integration.
+
+    Offers methods to read parquets from Dropbox into pandas DataFrames and
+    to write DataFrames as parquets files back to Dropbox, supporting both
+    full and partial downloads as well as chunked uploads for large files.
+    """
+
     def read_parquet(self, dbx_path: str, directory: str, filename: str, engine='pyarrow', **kwargs):
         """
-        Downloads a Parquet file from Dropbox and loads it into a pandas DataFrame.
+        Downloads a parquet file from Dropbox and loads it into a pandas DataFrame.
 
         Parameters
         ----------
@@ -17,14 +25,14 @@ class ParquetMixin:
         filename : str
             The name of the file (e.g., 'my_dataframe.parquet').
         engine : str, optional
-            Engine to use for loading Parquet file. Default is 'pyarrow'.
+            Engine to use for loading parquet file. Default is 'pyarrow'.
         **kwargs
             Additional keyword arguments passed to `pandas.read_parquet`.
 
         Returns
         -------
         pandas.DataFrame or None
-            The DataFrame loaded from the Parquet file, or None if an error occurs.
+            The DataFrame loaded from the parquet file, or None if an error occurs.
         """
 
         def loader(content: bytes, **loader_kwargs):
@@ -43,7 +51,7 @@ class ParquetMixin:
 
     def write_parquet(self, df: pd.DataFrame, dbx_path: str, directory: str, filename: str, print_success=True, print_size=True, engine='pyarrow', **kwargs):
         """
-        Saves a DataFrame to a Parquet file and uploads it to Dropbox.
+        Saves a DataFrame to a parquet file and uploads it to Dropbox.
 
         Parameters
         ----------
@@ -63,7 +71,7 @@ class ParquetMixin:
             Additional keyword arguments to pass to `to_parquet`.
         """
 
-        # Serialize DataFrame to Parquet bytes in memory
+        # Serialize DataFrame to parquet bytes in memory
         buffer = io.BytesIO()
         df.to_parquet(buffer, engine=engine, **kwargs)
         buffer.seek(0)
@@ -71,7 +79,7 @@ class ParquetMixin:
 
         size_in_mb = len(parquet_content) / (1024 ** 2)
         if print_size:
-            print(f"Size of the Parquet file: {size_in_mb:.2f} MB")
+            print(f"Size of the parquet file: {size_in_mb:.2f} MB")
 
         # Define uploader callable to inject into _base_write
         def uploader(content: bytes, full_path: str):

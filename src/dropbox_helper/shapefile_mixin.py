@@ -8,12 +8,16 @@ class ShapefileMixin:
     """
     Mixin providing Shapefile read/write capabilities via CoreMixin helpers.
 
+    This class assumes the presence of `self.dbx` (a Dropbox client) and `_base_write`
+    for file handling.
+
     Methods
     -------
-    read_shp(dbx_path, directory) -> GeoDataFrame or None
-        Download and load a shapefile from Dropbox.
-    write_shp(gdf, dbx_path, directory, filename) -> None
-        Save a GeoDataFrame as a shapefile and upload its components.
+    read_shp(dbx_path, directory, filename, **kwargs)
+        Download and load a shapefile (with its components) from Dropbox into a GeoDataFrame.
+
+    write_shp(gdf, dbx_path, directory, filename)
+        Save a GeoDataFrame to a shapefile and upload its components to Dropbox.
     """
 
     def read_shp(self,
@@ -23,6 +27,22 @@ class ShapefileMixin:
                 **kwargs) -> gpd.GeoDataFrame | None:
         """
         Download and load a shapefile (with all its components) from Dropbox into a GeoDataFrame.
+
+        Parameters
+        ----------
+        dbx_path : str
+            Base Dropbox path where the shapefile components are located.
+        directory : str
+            Subdirectory within the base path containing the shapefile components.
+        filename : str
+            Name of the main shapefile (.shp extension required).
+        **kwargs : dict, optional
+            Additional keyword arguments passed to `geopandas.read_file`.
+
+        Returns
+        -------
+        geopandas.GeoDataFrame or None
+            The loaded GeoDataFrame if successful; otherwise, None.
         """
         # Needed shapefile extensions
         SHP_EXTENSIONS = [".shp", ".shx", ".dbf", ".prj", ".cpg"]
@@ -60,23 +80,23 @@ class ShapefileMixin:
                   directory: str,
                   filename: str) -> None:
         """
-        Save a GeoDataFrame as a shapefile and upload its components to Dropbox.
+        Save a GeoDataFrame to a shapefile and upload all component files to Dropbox.
 
         Parameters
         ----------
         gdf : geopandas.GeoDataFrame
-            The GeoDataFrame to save.
+            The GeoDataFrame to serialize and save.
         dbx_path : str
-            Base Dropbox path where the files will be uploaded.
+            Base Dropbox path where the shapefile components will be uploaded.
         directory : str
-            Subdirectory within the base path for saving the shapefile.
+            Subdirectory within the base path where files will be saved.
         filename : str
-            Base name (without extension) for the shapefile components.
+            Base filename (without extension) for the shapefile (e.g., 'my_shapefile').
 
         Returns
         -------
         None
-            Components are uploaded; errors are printed to stdout.
+            The method uploads components individually; upload success is printed.
         """
         exts = ['.shp', '.shx', '.dbf', '.prj', '.cpg']
         with tempfile.TemporaryDirectory() as tmpdir:
