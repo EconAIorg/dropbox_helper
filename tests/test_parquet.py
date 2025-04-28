@@ -9,7 +9,7 @@ from tests.test_init import dropbox_test_folder
 class TestParquetMixin:
     fname = 'small_parquet.parquet'
 
-    @pytest.mark.order(5)
+    @pytest.mark.order(15)
     def test_small_parquet_upload(self):
         df = generate_random_dataframe(size_mb = .01)
         self.dbx_helper.write_parquet(df, self.output_path, self.dir, self.fname)
@@ -18,7 +18,7 @@ class TestParquetMixin:
         )
         assert self.fname in files, f"{self.fname} not found in Dropbox folder!"
 
-    @pytest.mark.order(6)
+    @pytest.mark.order(16)
     def test_small_parquet_download(self):
         # Test file exists
         files = self.dbx_helper.list_files_in_folder(
