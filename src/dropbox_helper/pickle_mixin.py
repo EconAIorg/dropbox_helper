@@ -4,7 +4,18 @@ import dropbox
 
 class PickleMixin:
     """
-    Mixin for reading/writing Python pickles via BaseDropboxIO.
+    Mixin for reading and writing Python pickle files via Dropbox.
+
+    This class depends on `CoreMixin` methods `_base_read` and `_base_write`
+    for abstracted file handling.
+
+    Methods
+    -------
+    read_pickle(dbx_path, directory, filename)
+        Downloads and deserializes a pickle file from Dropbox into a Python object.
+
+    write_pickle(obj, dbx_path, directory, filename, print_success=True, print_size=True)
+        Serializes a Python object into pickle format and uploads it to Dropbox.
     """
 
     def read_pickle(self,
@@ -13,6 +24,20 @@ class PickleMixin:
                     filename: str) -> object | None:
         """
         Download and deserialize a pickle file from Dropbox.
+
+        Parameters
+        ----------
+        dbx_path : str
+            Base Dropbox path where the file is located.
+        directory : str
+            Subdirectory within the base path containing the file.
+        filename : str
+            Name of the pickle file (e.g., 'model.pkl').
+
+        Returns
+        -------
+        object or None
+            The deserialized Python object if successful, otherwise None.
         """
         # loader: how to turn raw bytes into a Python object
         def loader(content: bytes):
@@ -38,7 +63,26 @@ class PickleMixin:
                      print_success: bool = True,
                      print_size: bool = True):
         """
-        Serialize a Python object to pickle and upload it to Dropbox.
+        Serialize a Python object and upload it to Dropbox as a pickle file.
+
+        Parameters
+        ----------
+        obj : object
+            The Python object to serialize.
+        dbx_path : str
+            Base Dropbox path where the file should be saved.
+        directory : str
+            Subdirectory within the base path to save the file.
+        filename : str
+            Name of the output pickle file (e.g., 'model.pkl').
+        print_success : bool, default=True
+            Whether to print a success message after upload.
+        print_size : bool, default=True
+            Whether to print the size of the serialized file before upload.
+
+        Returns
+        -------
+        None
         """
         # turn object → bytes
         buf = io.BytesIO()
