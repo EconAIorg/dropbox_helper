@@ -119,18 +119,14 @@ src<wbr>.<a href="./../dropbox_helper.html">dropbox_helper</a><wbr>.pickle_mixin
 </span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>            <span class="n">b</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">dropbox</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">WriteMode</span><span class="o">.</span><span class="n">overwrite</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="p">)</span>
 </span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="c1"># chunk if ≥150 MB</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>        <span class="n">chunked</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">150</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base_write</span><span class="p">(</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>            <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>            <span class="n">dbx_path</span><span class="o">=</span><span class="n">dbx_path</span><span class="p">,</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>            <span class="n">uploader</span><span class="o">=</span><span class="n">uploader</span><span class="p">,</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>            <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>            <span class="n">print_success</span><span class="o">=</span><span class="n">print_success</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>        <span class="p">)</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base_write</span><span class="p">(</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>            <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>            <span class="n">dbx_path</span><span class="o">=</span><span class="n">dbx_path</span><span class="p">,</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>            <span class="n">uploader</span><span class="o">=</span><span class="n">uploader</span><span class="p">,</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>            <span class="n">print_success</span><span class="o">=</span><span class="n">print_success</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -198,18 +194,14 @@ src<wbr>.<a href="./../dropbox_helper.html">dropbox_helper</a><wbr>.pickle_mixin
 </span><span id="PickleMixin-55"><a href="#PickleMixin-55"><span class="linenos">55</span></a>            <span class="n">b</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">dropbox</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">WriteMode</span><span class="o">.</span><span class="n">overwrite</span>
 </span><span id="PickleMixin-56"><a href="#PickleMixin-56"><span class="linenos">56</span></a>        <span class="p">)</span>
 </span><span id="PickleMixin-57"><a href="#PickleMixin-57"><span class="linenos">57</span></a>
-</span><span id="PickleMixin-58"><a href="#PickleMixin-58"><span class="linenos">58</span></a>        <span class="c1"># chunk if ≥150 MB</span>
-</span><span id="PickleMixin-59"><a href="#PickleMixin-59"><span class="linenos">59</span></a>        <span class="n">chunked</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">150</span>
-</span><span id="PickleMixin-60"><a href="#PickleMixin-60"><span class="linenos">60</span></a>
-</span><span id="PickleMixin-61"><a href="#PickleMixin-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base_write</span><span class="p">(</span>
-</span><span id="PickleMixin-62"><a href="#PickleMixin-62"><span class="linenos">62</span></a>            <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
-</span><span id="PickleMixin-63"><a href="#PickleMixin-63"><span class="linenos">63</span></a>            <span class="n">dbx_path</span><span class="o">=</span><span class="n">dbx_path</span><span class="p">,</span>
-</span><span id="PickleMixin-64"><a href="#PickleMixin-64"><span class="linenos">64</span></a>            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span>
-</span><span id="PickleMixin-65"><a href="#PickleMixin-65"><span class="linenos">65</span></a>            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-</span><span id="PickleMixin-66"><a href="#PickleMixin-66"><span class="linenos">66</span></a>            <span class="n">uploader</span><span class="o">=</span><span class="n">uploader</span><span class="p">,</span>
-</span><span id="PickleMixin-67"><a href="#PickleMixin-67"><span class="linenos">67</span></a>            <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-</span><span id="PickleMixin-68"><a href="#PickleMixin-68"><span class="linenos">68</span></a>            <span class="n">print_success</span><span class="o">=</span><span class="n">print_success</span>
-</span><span id="PickleMixin-69"><a href="#PickleMixin-69"><span class="linenos">69</span></a>        <span class="p">)</span>
+</span><span id="PickleMixin-58"><a href="#PickleMixin-58"><span class="linenos">58</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base_write</span><span class="p">(</span>
+</span><span id="PickleMixin-59"><a href="#PickleMixin-59"><span class="linenos">59</span></a>            <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+</span><span id="PickleMixin-60"><a href="#PickleMixin-60"><span class="linenos">60</span></a>            <span class="n">dbx_path</span><span class="o">=</span><span class="n">dbx_path</span><span class="p">,</span>
+</span><span id="PickleMixin-61"><a href="#PickleMixin-61"><span class="linenos">61</span></a>            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span>
+</span><span id="PickleMixin-62"><a href="#PickleMixin-62"><span class="linenos">62</span></a>            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+</span><span id="PickleMixin-63"><a href="#PickleMixin-63"><span class="linenos">63</span></a>            <span class="n">uploader</span><span class="o">=</span><span class="n">uploader</span><span class="p">,</span>
+</span><span id="PickleMixin-64"><a href="#PickleMixin-64"><span class="linenos">64</span></a>            <span class="n">print_success</span><span class="o">=</span><span class="n">print_success</span>
+</span><span id="PickleMixin-65"><a href="#PickleMixin-65"><span class="linenos">65</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -292,18 +284,14 @@ src<wbr>.<a href="./../dropbox_helper.html">dropbox_helper</a><wbr>.pickle_mixin
 </span><span id="PickleMixin.write_pickle-55"><a href="#PickleMixin.write_pickle-55"><span class="linenos">55</span></a>            <span class="n">b</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">dropbox</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">WriteMode</span><span class="o">.</span><span class="n">overwrite</span>
 </span><span id="PickleMixin.write_pickle-56"><a href="#PickleMixin.write_pickle-56"><span class="linenos">56</span></a>        <span class="p">)</span>
 </span><span id="PickleMixin.write_pickle-57"><a href="#PickleMixin.write_pickle-57"><span class="linenos">57</span></a>
-</span><span id="PickleMixin.write_pickle-58"><a href="#PickleMixin.write_pickle-58"><span class="linenos">58</span></a>        <span class="c1"># chunk if ≥150 MB</span>
-</span><span id="PickleMixin.write_pickle-59"><a href="#PickleMixin.write_pickle-59"><span class="linenos">59</span></a>        <span class="n">chunked</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">150</span>
-</span><span id="PickleMixin.write_pickle-60"><a href="#PickleMixin.write_pickle-60"><span class="linenos">60</span></a>
-</span><span id="PickleMixin.write_pickle-61"><a href="#PickleMixin.write_pickle-61"><span class="linenos">61</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base_write</span><span class="p">(</span>
-</span><span id="PickleMixin.write_pickle-62"><a href="#PickleMixin.write_pickle-62"><span class="linenos">62</span></a>            <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
-</span><span id="PickleMixin.write_pickle-63"><a href="#PickleMixin.write_pickle-63"><span class="linenos">63</span></a>            <span class="n">dbx_path</span><span class="o">=</span><span class="n">dbx_path</span><span class="p">,</span>
-</span><span id="PickleMixin.write_pickle-64"><a href="#PickleMixin.write_pickle-64"><span class="linenos">64</span></a>            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span>
-</span><span id="PickleMixin.write_pickle-65"><a href="#PickleMixin.write_pickle-65"><span class="linenos">65</span></a>            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-</span><span id="PickleMixin.write_pickle-66"><a href="#PickleMixin.write_pickle-66"><span class="linenos">66</span></a>            <span class="n">uploader</span><span class="o">=</span><span class="n">uploader</span><span class="p">,</span>
-</span><span id="PickleMixin.write_pickle-67"><a href="#PickleMixin.write_pickle-67"><span class="linenos">67</span></a>            <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-</span><span id="PickleMixin.write_pickle-68"><a href="#PickleMixin.write_pickle-68"><span class="linenos">68</span></a>            <span class="n">print_success</span><span class="o">=</span><span class="n">print_success</span>
-</span><span id="PickleMixin.write_pickle-69"><a href="#PickleMixin.write_pickle-69"><span class="linenos">69</span></a>        <span class="p">)</span>
+</span><span id="PickleMixin.write_pickle-58"><a href="#PickleMixin.write_pickle-58"><span class="linenos">58</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_base_write</span><span class="p">(</span>
+</span><span id="PickleMixin.write_pickle-59"><a href="#PickleMixin.write_pickle-59"><span class="linenos">59</span></a>            <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+</span><span id="PickleMixin.write_pickle-60"><a href="#PickleMixin.write_pickle-60"><span class="linenos">60</span></a>            <span class="n">dbx_path</span><span class="o">=</span><span class="n">dbx_path</span><span class="p">,</span>
+</span><span id="PickleMixin.write_pickle-61"><a href="#PickleMixin.write_pickle-61"><span class="linenos">61</span></a>            <span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span>
+</span><span id="PickleMixin.write_pickle-62"><a href="#PickleMixin.write_pickle-62"><span class="linenos">62</span></a>            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+</span><span id="PickleMixin.write_pickle-63"><a href="#PickleMixin.write_pickle-63"><span class="linenos">63</span></a>            <span class="n">uploader</span><span class="o">=</span><span class="n">uploader</span><span class="p">,</span>
+</span><span id="PickleMixin.write_pickle-64"><a href="#PickleMixin.write_pickle-64"><span class="linenos">64</span></a>            <span class="n">print_success</span><span class="o">=</span><span class="n">print_success</span>
+</span><span id="PickleMixin.write_pickle-65"><a href="#PickleMixin.write_pickle-65"><span class="linenos">65</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
