@@ -94,6 +94,5 @@ class ShapefileMixin:
                     uploader=lambda b, p: self.dbx.files_upload(
                         b, p, mode=dropbox.files.WriteMode.overwrite
                     ),
-                    chunked=False,
                     print_success=True
                 )

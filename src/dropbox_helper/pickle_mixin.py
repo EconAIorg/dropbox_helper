@@ -54,15 +54,11 @@ class PickleMixin:
             b, p, mode=dropbox.files.WriteMode.overwrite
         )
 
-        # chunk if ≥150 MB
-        chunked = (len(content) / 1024**2) >= 150
-
         self._base_write(
             content=content,
             dbx_path=dbx_path,
             directory=directory,
             filename=filename,
             uploader=uploader,
-            chunked=chunked,
             print_success=print_success
         )

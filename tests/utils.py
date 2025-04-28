@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import io
+from shapely import Point
+import geopandas as gpd
 
 def generate_random_dataframe(size_mb: float, num_columns: int = 10, seed: int = None) -> pd.DataFrame:
         """
@@ -39,3 +41,16 @@ def generate_random_dataframe(size_mb: float, num_columns: int = 10, seed: int =
         df = pd.DataFrame(full_data, columns=[f"col_{i}" for i in range(num_columns)])
 
         return df
+
+# Helper to generate a random GeoDataFrame
+def generate_random_gdf(size=100):
+    """
+    Create a GeoDataFrame with random point geometries.
+    """
+    xs = np.random.rand(size)
+    ys = np.random.rand(size)
+    df = pd.DataFrame({'x': xs, 'y': ys})
+    gdf = gpd.GeoDataFrame(df,
+                           geometry=[Point(xy) for xy in zip(xs, ys)],
+                           crs="EPSG:4326")
+    return gdf

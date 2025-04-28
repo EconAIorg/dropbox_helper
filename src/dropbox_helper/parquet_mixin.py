@@ -3,68 +3,90 @@ import pandas as pd
 import io
 import os
 import dropbox
-
 class ParquetMixin:
     def read_parquet(self, dbx_path: str, directory: str, filename: str, engine='pyarrow', **kwargs):
         """
         Downloads a Parquet file from Dropbox and loads it into a pandas DataFrame.
 
-        Args:
-        - dbx_path (str): The base Dropbox path where the file is stored.
-        - directory (str): The directory within the base path where the file is stored.
-        - filename (str): The name of the file (e.g., 'my_dataframe.parquet').
+        Parameters
+        ----------
+        dbx_path : str
+            The base Dropbox path where the file is stored.
+        directory : str
+            The directory within the base path where the file is stored.
+        filename : str
+            The name of the file (e.g., 'my_dataframe.parquet').
+        engine : str, optional
+            Engine to use for loading Parquet file. Default is 'pyarrow'.
+        **kwargs
+            Additional keyword arguments passed to `pandas.read_parquet`.
 
-        Returns:
-        - pandas.DataFrame: The DataFrame loaded from the Parquet file.
+        Returns
+        -------
+        pandas.DataFrame or None
+            The DataFrame loaded from the Parquet file, or None if an error occurs.
         """
-        full_dropbox_path = os.path.join(dbx_path, directory, filename)
-        try:
-            # Download the Parquet file from Dropbox
-            _, res = self.dbx.files_download(full_dropbox_path)
 
-            # Load the content into a DataFrame
-            buffer = io.BytesIO(res.content)
-            df = pd.read_parquet(buffer, engine=engine, **kwargs)
+        def loader(content: bytes, **loader_kwargs):
+            buffer = io.BytesIO(content)
+            return pd.read_parquet(buffer, **loader_kwargs)
 
-            print(f"File '{filename}' successfully downloaded and loaded into a DataFrame.")
-            return df
-        except Exception as e:
-            print(f"Failed to load Parquet file '{filename}' from Dropbox. Error: {e}")
-            return None
-    
-    def write_parquet(self, df: pd.DataFrame, dbx_path: str, directory: str, filename: str, print_success=True, print_size=True, **kwargs):
+        return self._base_read(
+            dbx_path=dbx_path,
+            directory=directory,
+            filename=filename,
+            downloader=self.dbx.files_download,
+            loader=loader,
+            engine=engine,
+            **kwargs
+        )
+
+    def write_parquet(self, df: pd.DataFrame, dbx_path: str, directory: str, filename: str, print_success=True, print_size=True, engine='pyarrow', **kwargs):
         """
         Saves a DataFrame to a Parquet file and uploads it to Dropbox.
 
-        Args:
-        - df (pandas.DataFrame): The DataFrame to save.
-        - dbx_path (str): The base Dropbox path where the file will be saved.
-        - directory (str): The directory within the base path where the file will be saved.
-        - filename (str): The name of the file (e.g., 'my_dataframe.parquet').
-        - print_success (bool): Whether to print a success message upon successful upload.
-        - print_size (bool): Whether to print the file size before upload.
+        Parameters
+        ----------
+        df : pandas.DataFrame
+            The DataFrame to save.
+        dbx_path : str
+            The base Dropbox path where the file will be saved.
+        directory : str
+            The directory within the base path where the file will be saved.
+        filename : str
+            The name of the file (e.g., 'my_dataframe.parquet').
+        print_success : bool, optional
+            Whether to print a success message upon successful upload.
+        print_size : bool, optional
+            Whether to print the file size before upload.
+        **kwargs
+            Additional keyword arguments to pass to `to_parquet`.
         """
-        full_dropbox_path = f"{dbx_path}/{directory}/{filename}"
-        try:
-            # Save DataFrame to a Parquet file in memory
-            buffer = io.BytesIO()
-            df.to_parquet(buffer, engine='pyarrow', **kwargs)
-            buffer.seek(0)
-            parquet_content = buffer.getvalue()
 
-            # Calculate file size
-            size_in_bytes = len(parquet_content)
-            size_in_mb = size_in_bytes / (1024 ** 2)  # Convert bytes to megabytes
-            if print_size:
-                print(f"Size of the Parquet file: {size_in_mb:.2f} MB")
+        # Serialize DataFrame to Parquet bytes in memory
+        buffer = io.BytesIO()
+        df.to_parquet(buffer, engine=engine, **kwargs)
+        buffer.seek(0)
+        parquet_content = buffer.getvalue()
 
-            # Upload Parquet file to Dropbox
-            if size_in_mb < 150:  # Dropbox API limit for direct upload
-                self.dbx.files_upload(parquet_content, full_dropbox_path, mode=dropbox.files.WriteMode.overwrite)
-            else:
-                self._chunked_upload_to_dropbox(parquet_content, full_dropbox_path)
+        size_in_mb = len(parquet_content) / (1024 ** 2)
+        if print_size:
+            print(f"Size of the Parquet file: {size_in_mb:.2f} MB")
 
-            if print_success:
-                print(f"File '{filename}' successfully uploaded to Dropbox path: '{full_dropbox_path}'")
-        except Exception as e:
-            print(f"Failed to upload Parquet file '{filename}' to Dropbox. Error: {e}")
+        # Define uploader callable to inject into _base_write
+        def uploader(content: bytes, full_path: str):
+            self.dbx.files_upload(
+                content,
+                full_path,
+                mode=dropbox.files.WriteMode.overwrite
+            )
+
+        # Use CoreMixin's _base_write
+        self._base_write(
+            content=parquet_content,
+            dbx_path=dbx_path,
+            directory=directory,
+            filename=filename,
+            uploader=uploader,
+            print_success=print_success
+        )

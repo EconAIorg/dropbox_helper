@@ -65,17 +65,14 @@ class CoreMixin:
                     directory: str,
                     filename: str,
                     uploader: callable,
-                    chunked: bool = True,
                     print_success: bool = True):
-        """
-        Generic uploader (direct or chunked).
-        """
         full_path = self._construct_path(dbx_path, directory, filename)
         try:
-            if not chunked:
-                uploader(content, full_path)
-            else:
+            # Determine if we should chunk based on content size
+            if len(content) >= 150 * 1024 * 1024: # chunk if ≥150 MB
                 self._chunked_upload_to_dropbox(content, full_path)
+            else:
+                uploader(content, full_path)
 
             if print_success:
                 print(f"Uploaded '{filename}' to '{full_path}'")
@@ -304,7 +301,6 @@ class CoreMixin:
             directory=directory,
             filename=filename,
             uploader=uploader,
-            chunked=False,
             print_success=print_success
         )
 
@@ -338,7 +334,6 @@ class CoreMixin:
             directory=directory,
             filename=filename,
             uploader=uploader,
-            chunked=False,
             print_success=print_success
         )
     def download_file_directly(self, dbx_path: str, directory: str, filename: str) -> bytes:
