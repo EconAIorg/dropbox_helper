@@ -47,11 +47,36 @@ class DropboxHelper(CoreMixin, CSVMixin, ParquetMixin, PickleMixin, ShapefileMix
     """
     pass
 
-def get_dbx_helper(token = 'DROPBOX_TOKEN',key = 'DROPBOX_KEY', secret= 'DROPBOX_SECRET'):
+def get_dbx_helper(token='DROPBOX_TOKEN', key='DROPBOX_KEY', secret='DROPBOX_SECRET'):
+    """
+    Instantiate a DropboxHelper using environment variables.
+
+    Parameters
+    ----------
+    token : str, optional
+        The name of the environment variable containing the Dropbox API token.
+        Defaults to 'DROPBOX_TOKEN'.
+    key : str, optional
+        The name of the environment variable containing the Dropbox app key.
+        Defaults to 'DROPBOX_KEY'.
+    secret : str, optional
+        The name of the environment variable containing the Dropbox app secret.
+        Defaults to 'DROPBOX_SECRET'.
+
+    Returns
+    -------
+    DropboxHelper
+        An instance of DropboxHelper configured with the specified credentials.
+
+    Raises
+    ------
+    ValueError
+        If any of the required environment variables are missing or empty.
+    """
     token = os.getenv(token)
     app_key = os.getenv(key)
     app_secret = os.getenv(secret)
-    
+
     if not token or not app_key or not app_secret:
         raise ValueError("Missing Dropbox credentials in environment variables.")
     
