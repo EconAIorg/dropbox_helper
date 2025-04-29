@@ -40,6 +40,9 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="function" href="#get_dbx_helper">get_dbx_helper</a>
+            </li>
     </ul>
 
 
@@ -110,17 +113,42 @@ src<wbr>.dropbox_helper    </h1>
 </span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="k">pass</span>
 </span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_dbx_helper</span><span class="p">(</span><span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;DROPBOX_TOKEN&#39;</span><span class="p">,</span><span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;DROPBOX_KEY&#39;</span><span class="p">,</span> <span class="n">secret</span><span class="o">=</span> <span class="s1">&#39;DROPBOX_SECRET&#39;</span><span class="p">):</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="n">app_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="n">app_secret</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>    
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">app_key</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">app_secret</span><span class="p">:</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing Dropbox credentials in environment variables.&quot;</span><span class="p">)</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>    
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="k">return</span> <span class="n">DropboxHelper</span><span class="p">(</span><span class="n">dbx_token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">dbx_key</span><span class="o">=</span><span class="n">app_key</span><span class="p">,</span> <span class="n">dbx_secret</span><span class="o">=</span><span class="n">app_secret</span><span class="p">)</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="c1"># dbx_helper = get_dbx_helper()</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_dbx_helper</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s1">&#39;DROPBOX_TOKEN&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;DROPBOX_KEY&#39;</span><span class="p">,</span> <span class="n">secret</span><span class="o">=</span><span class="s1">&#39;DROPBOX_SECRET&#39;</span><span class="p">):</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">    Instantiate a DropboxHelper using environment variables.</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">    Parameters</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">    ----------</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    token : str, optional</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">        The name of the environment variable containing the Dropbox API token.</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">        Defaults to &#39;DROPBOX_TOKEN&#39;.</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">    key : str, optional</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">        The name of the environment variable containing the Dropbox app key.</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">        Defaults to &#39;DROPBOX_KEY&#39;.</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">    secret : str, optional</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="sd">        The name of the environment variable containing the Dropbox app secret.</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">        Defaults to &#39;DROPBOX_SECRET&#39;.</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="sd">    Returns</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="sd">    -------</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="sd">    DropboxHelper</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="sd">        An instance of DropboxHelper configured with the specified credentials.</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="sd">    Raises</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a><span class="sd">    ------</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a><span class="sd">    ValueError</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="sd">        If any of the required environment variables are missing or empty.</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>    <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>    <span class="n">app_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a>    <span class="n">app_secret</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a>
+</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">app_key</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">app_secret</span><span class="p">:</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing Dropbox credentials in environment variables.&quot;</span><span class="p">)</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>    
+</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>    <span class="k">return</span> <span class="n">DropboxHelper</span><span class="p">(</span><span class="n">dbx_token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">dbx_key</span><span class="o">=</span><span class="n">app_key</span><span class="p">,</span> <span class="n">dbx_secret</span><span class="o">=</span><span class="n">app_secret</span><span class="p">)</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a>
+</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a><span class="c1"># dbx_helper = get_dbx_helper()</span>
 </span></pre></div>
 
 
@@ -249,6 +277,85 @@ The path of the Dropbox folder where the output data will be saved.</li>
             </div>
                                 </dl>
                             </div>
+                </section>
+                <section id="get_dbx_helper">
+                            <input id="get_dbx_helper-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_dbx_helper</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">token</span><span class="o">=</span><span class="s1">&#39;DROPBOX_TOKEN&#39;</span>, </span><span class="param"><span class="n">key</span><span class="o">=</span><span class="s1">&#39;DROPBOX_KEY&#39;</span>, </span><span class="param"><span class="n">secret</span><span class="o">=</span><span class="s1">&#39;DROPBOX_SECRET&#39;</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="get_dbx_helper-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#get_dbx_helper"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_dbx_helper-51"><a href="#get_dbx_helper-51"><span class="linenos">51</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_dbx_helper</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s1">&#39;DROPBOX_TOKEN&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;DROPBOX_KEY&#39;</span><span class="p">,</span> <span class="n">secret</span><span class="o">=</span><span class="s1">&#39;DROPBOX_SECRET&#39;</span><span class="p">):</span>
+</span><span id="get_dbx_helper-52"><a href="#get_dbx_helper-52"><span class="linenos">52</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="get_dbx_helper-53"><a href="#get_dbx_helper-53"><span class="linenos">53</span></a><span class="sd">    Instantiate a DropboxHelper using environment variables.</span>
+</span><span id="get_dbx_helper-54"><a href="#get_dbx_helper-54"><span class="linenos">54</span></a>
+</span><span id="get_dbx_helper-55"><a href="#get_dbx_helper-55"><span class="linenos">55</span></a><span class="sd">    Parameters</span>
+</span><span id="get_dbx_helper-56"><a href="#get_dbx_helper-56"><span class="linenos">56</span></a><span class="sd">    ----------</span>
+</span><span id="get_dbx_helper-57"><a href="#get_dbx_helper-57"><span class="linenos">57</span></a><span class="sd">    token : str, optional</span>
+</span><span id="get_dbx_helper-58"><a href="#get_dbx_helper-58"><span class="linenos">58</span></a><span class="sd">        The name of the environment variable containing the Dropbox API token.</span>
+</span><span id="get_dbx_helper-59"><a href="#get_dbx_helper-59"><span class="linenos">59</span></a><span class="sd">        Defaults to &#39;DROPBOX_TOKEN&#39;.</span>
+</span><span id="get_dbx_helper-60"><a href="#get_dbx_helper-60"><span class="linenos">60</span></a><span class="sd">    key : str, optional</span>
+</span><span id="get_dbx_helper-61"><a href="#get_dbx_helper-61"><span class="linenos">61</span></a><span class="sd">        The name of the environment variable containing the Dropbox app key.</span>
+</span><span id="get_dbx_helper-62"><a href="#get_dbx_helper-62"><span class="linenos">62</span></a><span class="sd">        Defaults to &#39;DROPBOX_KEY&#39;.</span>
+</span><span id="get_dbx_helper-63"><a href="#get_dbx_helper-63"><span class="linenos">63</span></a><span class="sd">    secret : str, optional</span>
+</span><span id="get_dbx_helper-64"><a href="#get_dbx_helper-64"><span class="linenos">64</span></a><span class="sd">        The name of the environment variable containing the Dropbox app secret.</span>
+</span><span id="get_dbx_helper-65"><a href="#get_dbx_helper-65"><span class="linenos">65</span></a><span class="sd">        Defaults to &#39;DROPBOX_SECRET&#39;.</span>
+</span><span id="get_dbx_helper-66"><a href="#get_dbx_helper-66"><span class="linenos">66</span></a>
+</span><span id="get_dbx_helper-67"><a href="#get_dbx_helper-67"><span class="linenos">67</span></a><span class="sd">    Returns</span>
+</span><span id="get_dbx_helper-68"><a href="#get_dbx_helper-68"><span class="linenos">68</span></a><span class="sd">    -------</span>
+</span><span id="get_dbx_helper-69"><a href="#get_dbx_helper-69"><span class="linenos">69</span></a><span class="sd">    DropboxHelper</span>
+</span><span id="get_dbx_helper-70"><a href="#get_dbx_helper-70"><span class="linenos">70</span></a><span class="sd">        An instance of DropboxHelper configured with the specified credentials.</span>
+</span><span id="get_dbx_helper-71"><a href="#get_dbx_helper-71"><span class="linenos">71</span></a>
+</span><span id="get_dbx_helper-72"><a href="#get_dbx_helper-72"><span class="linenos">72</span></a><span class="sd">    Raises</span>
+</span><span id="get_dbx_helper-73"><a href="#get_dbx_helper-73"><span class="linenos">73</span></a><span class="sd">    ------</span>
+</span><span id="get_dbx_helper-74"><a href="#get_dbx_helper-74"><span class="linenos">74</span></a><span class="sd">    ValueError</span>
+</span><span id="get_dbx_helper-75"><a href="#get_dbx_helper-75"><span class="linenos">75</span></a><span class="sd">        If any of the required environment variables are missing or empty.</span>
+</span><span id="get_dbx_helper-76"><a href="#get_dbx_helper-76"><span class="linenos">76</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="get_dbx_helper-77"><a href="#get_dbx_helper-77"><span class="linenos">77</span></a>    <span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+</span><span id="get_dbx_helper-78"><a href="#get_dbx_helper-78"><span class="linenos">78</span></a>    <span class="n">app_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="get_dbx_helper-79"><a href="#get_dbx_helper-79"><span class="linenos">79</span></a>    <span class="n">app_secret</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
+</span><span id="get_dbx_helper-80"><a href="#get_dbx_helper-80"><span class="linenos">80</span></a>
+</span><span id="get_dbx_helper-81"><a href="#get_dbx_helper-81"><span class="linenos">81</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">app_key</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">app_secret</span><span class="p">:</span>
+</span><span id="get_dbx_helper-82"><a href="#get_dbx_helper-82"><span class="linenos">82</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing Dropbox credentials in environment variables.&quot;</span><span class="p">)</span>
+</span><span id="get_dbx_helper-83"><a href="#get_dbx_helper-83"><span class="linenos">83</span></a>    
+</span><span id="get_dbx_helper-84"><a href="#get_dbx_helper-84"><span class="linenos">84</span></a>    <span class="k">return</span> <span class="n">DropboxHelper</span><span class="p">(</span><span class="n">dbx_token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">dbx_key</span><span class="o">=</span><span class="n">app_key</span><span class="p">,</span> <span class="n">dbx_secret</span><span class="o">=</span><span class="n">app_secret</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Instantiate a DropboxHelper using environment variables.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>token</strong> (str, optional):
+The name of the environment variable containing the Dropbox API token.
+Defaults to 'DROPBOX_TOKEN'.</li>
+<li><strong>key</strong> (str, optional):
+The name of the environment variable containing the Dropbox app key.
+Defaults to 'DROPBOX_KEY'.</li>
+<li><strong>secret</strong> (str, optional):
+The name of the environment variable containing the Dropbox app secret.
+Defaults to 'DROPBOX_SECRET'.</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<ul>
+<li><strong>DropboxHelper</strong>: An instance of DropboxHelper configured with the specified credentials.</li>
+</ul>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>ValueError</strong>: If any of the required environment variables are missing or empty.</li>
+</ul>
+</div>
+
+
                 </section>
     </main>
 <script>
